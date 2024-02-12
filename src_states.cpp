@@ -2,8 +2,8 @@
 // Created by 7862s on 12-02-2024.
 //
 
-#ifndef STATEMACHINES_SRC_STATES_H
-#define STATEMACHINES_SRC_STATES_H
+#ifndef STATEMACHINES_SRC_STATES_CPP
+#define STATEMACHINES_SRC_STATES_CPP
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -109,4 +109,4 @@ namespace std {
 };
 }
 
-#endif //STATEMACHINES_SRC_STATES_H
+#endif //STATEMACHINES_SRC_STATES_CPP

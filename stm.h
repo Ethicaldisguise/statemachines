@@ -1,6 +1,7 @@
 //
 // Created by 7862s on 11-02-2024.
 //
+#pragma once
 
 #ifndef STATEMACHINES_STM_H
 #define STATEMACHINES_STM_H
@@ -25,6 +26,6 @@ namespace stm {
     bool validatestring(const std::string &_in,const dfa::stateMachine<T> finiteautomata);
 }
 
-#include "src_stm.h"
+#include "src_stm.cpp"
 
 #endif //STATEMACHINES_STM_H

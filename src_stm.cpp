@@ -2,8 +2,8 @@
 // Created by 7862s on 12-02-2024.
 //
 
-#ifndef STATEMACHINES_SRC_STM_H
-#define STATEMACHINES_SRC_STM_H
+#ifndef STATEMACHINES_SRC_STM_CPP
+#define STATEMACHINES_SRC_STM_CPP
 #include <iostream>
 #include <iomanip>
 #include <unordered_map>
@@ -225,7 +225,7 @@ namespace stm {
         return currentstate->isfinal;
     }
 }
-#endif //STATEMACHINES_SRC_STM_H
+#endif //STATEMACHINES_SRC_STM_CPP
 /*
 2
  a
