@@ -1,18 +1,19 @@
 //
 // Created by 7862s on 11-02-2024.
 //
-#pragma once
+//#pragma once
 #ifndef STATEMACHINES_STATES_H
 #define STATEMACHINES_STATES_H
 
+namespace stm {
+    struct mixedState;
+}
 
 namespace stm::nfa {
-    template<typename T>
     struct state;
 }
 
 namespace stm::dfa {
-    template<class T>
     struct state;
 }
 
