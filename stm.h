@@ -26,5 +26,6 @@ namespace stm {
 }
 
 #include "src_stm.cpp"
+#include "src_utilities.cpp"
 
 #endif //STATEMACHINES_STM_H
