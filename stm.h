@@ -20,7 +20,9 @@ namespace stm {
     void transform(const nfa::stateMachine &nfa, dfa::stateMachine &dfa);
     void minimize(const automata &dfa);
     std::vector<std::string> tokenize(const std::string& str, char delimiter);
-    bool validatestring(const std::string &_in, const stm::dfa::stateMachine &finiteautomata);
+    bool validateString(const std::string &_in, const stm::dfa::stateMachine &finiteautomata);
+    void renameStates(stm::automata &automata);
+    bool areEqual(const stm::automata &a1, const stm::automata &a2);
 }
 
 #include "src_stm.cpp"

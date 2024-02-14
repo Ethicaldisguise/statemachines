@@ -9,6 +9,7 @@
 #include <vector>
 #include <string>
 #include <functional>
+#include <set>
 #include <string_view>
 #include <iomanip>
 #include <memory>
@@ -23,7 +24,7 @@ namespace stm::nfa {
 
         void setoutput(const char &through, std::shared_ptr<state> &to) {
             outputStates[through].emplace_back(to);
-            std::cout << "\n got " << to -> name << " " << &outputStates << " through " << through << std::endl;
+//            std::cout << "\n got " << to -> name << " " << &outputStates << " through " << through << std::endl;
         }
 
         auto where(const char &input) {
@@ -61,6 +62,14 @@ namespace stm::nfa {
         std::string name;
     };
 }
+namespace std {
+    template<>
+    struct hash<stm::nfa::state> {
+        std::size_t operator()(const stm::nfa::state &s) const {
+            return std::hash<std::string>()(s.name);
+        }
+    };
+}
 namespace stm::dfa {
     struct state {
         state() : name("_") {
@@ -69,6 +78,7 @@ namespace stm::dfa {
         explicit state(const std::string &_name) : name(_name) {}
 
         void setoutput(const char &through, const std::shared_ptr<state> &to) {
+//            std::cout << "got " << to -> name<< " " << &(to ->outputStates) << " through " << through << std::endl;
             outputStates[through] = to;
         }
 
@@ -120,12 +130,12 @@ namespace stm {
         mixedState(const std::shared_ptr<nfa::state> &state) {
             states.insert(state);
         }
-        mixedState(std::unordered_set<std::shared_ptr<nfa::state>> states_in) {
+        mixedState(std::unordered_set<std::shared_ptr<nfa::state>> &states_in) {
             for (auto &st : states_in) {
                 states.insert(st);
             }
         }
-        mixedState(std::vector<std::shared_ptr<nfa::state>> states_in) {
+        mixedState(const std::vector<std::shared_ptr<nfa::state>> &states_in) {
             for (auto &st : states_in) {
                 states.insert(st);
             }
@@ -133,14 +143,14 @@ namespace stm {
         void add(const std::shared_ptr<nfa::state> &state) {
             states.insert(state);
         }
-        auto where(char _inp) {
+        auto where(const char &_inp)const {
             mixedState state;
-            for(auto &st : states)
+            for(const auto &st : states)
             {
 //                std::cout << "got " << std::endl;
 //                st ->print();
 //                std::cout << " through " << _inp << std::endl;
-                for(auto a : st -> where(_inp))
+                for(auto &a : st -> where(_inp))
                 {
                     state.add(a);
                 }
@@ -155,7 +165,7 @@ namespace stm {
             }
             return final_name;
         }
-        auto isfinal() {
+        auto is_final()const {
             for(const auto &s : states)
             {
                 if(s -> isfinal)
@@ -179,7 +189,7 @@ namespace stm {
         bool operator<(const mixedState& other) const {
             return name() < other.name();
         }
-        std::unordered_set<std::shared_ptr<nfa::state>> states;
+        std::set<std::shared_ptr<nfa::state>> states;
     };
 }
 
@@ -187,7 +197,7 @@ namespace std {
     template<>
     struct hash<stm::mixedState> {
         std::size_t operator()(const stm::mixedState &s) const {
-            return std::hash<stm::mixedState>()(s.states);
+            return std::hash<stm::mixedState>()(s);
         }
     };
 }
