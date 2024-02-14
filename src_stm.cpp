@@ -21,10 +21,9 @@ namespace stm {
     class automata {
     public:
         virtual void print() const = 0;
-
         virtual void get_transition() = 0;
         virtual void get_prerequsites() = 0;
-        virtual bool operator==(const automata &cmp) = 0;
+        virtual bool operator==(const automata &cmp) const = 0;
 //        virtual void add_state(state _in) = 0;
 //    protected:
         int n_inputs;
@@ -33,14 +32,15 @@ namespace stm {
 }
 namespace stm::nfa {
     class stateMachine : public stm::automata{
-    public:
+    private:
         int n_states{}, n_inputs{};
-        std::shared_ptr<state> start_state;
         std::shared_ptr<state> null = std::make_shared<state>();
         std::unordered_map<std::string, std::shared_ptr<state>> _validstates{};
-        std::vector<char> _inputsignals;
         std::vector<std::shared_ptr<state>> _finalstates{};
 
+    public:
+        std::shared_ptr<state> start_state;
+        std::vector<char> _inputsignals;
         stateMachine() : n_inputs(0), n_states(0) {}
         void get_prerequsites() {
             std::cout<<"Enter number of valid states :",std::cin>>n_states,std::cout<<std::endl;
@@ -108,7 +108,24 @@ namespace stm::nfa {
         void add_state(std::shared_ptr<state> &_in) {
             _validstates[_in -> name] = _in;
         }
-        bool operator==(const stm::automata &cmp){
+        void add_as_final_state(const std::shared_ptr<state> &_in) {
+            _in -> isfinal = true;
+            _finalstates.emplace_back(_in);
+            _validstates[_in -> name] = _in;
+        }
+        const bool isfinal(const std::string &name) const {
+            return _validstates.at(name) -> isfinal;
+        }
+        auto find(const std::string &name) const {
+            return _validstates.find(name);
+        }
+        const auto begin() const {
+            return _validstates.begin();
+        }
+        const auto end() const {
+            return _validstates.end();
+        }
+        bool operator==(const stm::automata &cmp) const {
             return n_inputs == cmp.n_inputs && n_states == cmp.n_states;
         }
         void print() const{
@@ -122,16 +139,13 @@ namespace stm::nfa {
 }
 namespace stm::dfa {
     class stateMachine : public stm::automata {
+        std::shared_ptr<state> null = std::make_shared<state>();
+        std::unordered_map<std::string, std::shared_ptr<state>> _validstates{};
+        std::vector<std::shared_ptr<state>> _finalstates{};
     public:
         int n_states{}, n_inputs{};
         std::shared_ptr<state> start_state{};
-        std::shared_ptr<state> null = std::make_shared<state>();
-        std::unordered_map<std::string, std::shared_ptr<state>> _validstates{};
         std::vector<char> _inputsignals;
-        std::vector<std::shared_ptr<state>> _finalstates{};
-        stateMachine() : n_inputs(0), n_states(0){
-
-        }
         void get_prerequsites() {
                 std::cout << "Enter valid number of states :", std::cin >> n_states, std::cout << std::endl;
                 std::string starting_state_name;
@@ -198,7 +212,19 @@ namespace stm::dfa {
             _finalstates.emplace_back(_in);
             _validstates[_in -> name] = _in;
         }
-        bool operator==(const stm::automata &cmp) {
+        auto find(const std::string &name) const {
+            return _validstates.find(name);
+        }
+        auto begin() const {
+            return _validstates.begin();
+        }
+        auto end() const {
+            return _validstates.end();
+        }
+        const auto& no_of_states() const {
+            return _validstates.size();
+        }
+        bool operator==(const stm::automata &cmp)const {
             return n_inputs == cmp.n_inputs && n_states == cmp.n_states;
         }
         void print() const {
@@ -239,6 +265,9 @@ namespace stm::dfa {
 
 
         // private:
+        stateMachine() : n_inputs(0), n_states(0){
+
+        }
     };
 }
 

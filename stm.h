@@ -23,6 +23,7 @@ namespace stm {
     const char * validateString(const std::string &_in, const stm::dfa::stateMachine &finiteautomata);
     void renameStates(stm::automata &automata);
     bool areEqual(const stm::automata &a1, const stm::automata &a2);
+    void invert(stm::automata &automata);
 }
 
 #include "src_stm.cpp"

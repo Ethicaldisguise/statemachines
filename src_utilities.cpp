@@ -93,8 +93,8 @@ namespace stm {
         return (currentstate->isfinal) ? "Accepted" : currentstate->name.c_str();
     }
     void validate_assignment(std::shared_ptr<dfa::state> &newstate,const stm::mixedState &curr_state,dfa::stateMachine &dfa) {
-        const auto &state_ptr1 = dfa._validstates.find(curr_state.name());
-        if (state_ptr1 != dfa._validstates.end())
+        const auto &state_ptr1 = dfa.find(curr_state.name());
+        if (state_ptr1 != dfa.end())
         {
             newstate = state_ptr1 -> second;
 //            std::cout << "Found " << newstate -> name << " " << &(newstate -> outputStates) <<std::endl;
@@ -110,7 +110,7 @@ namespace stm {
     void transform(const nfa::stateMachine &nfa, dfa::stateMachine &dfa) {
         std::cout << "\nTransforming nfa -> dfa" << std::endl;
         dfa.start_state = std::make_shared<dfa::state>(nfa.start_state->name);
-        dfa._validstates[nfa.start_state->name] = dfa.start_state;
+        dfa.add_state(dfa.start_state);
         dfa._inputsignals = nfa._inputsignals;
         stm::mixedState currentstate(nfa.start_state);
 
@@ -141,7 +141,7 @@ namespace stm {
             std::cout << "\nCurrent Stack : "; state_stack.print();
 #endif
         }
-        dfa.n_states = dfa._validstates.size();
+        dfa.n_states = dfa.no_of_states();
         dfa.n_inputs = dfa._inputsignals.size();
     }
     bool areEqual(const stm::automata &a1, const stm::automata &a2)
@@ -151,5 +151,19 @@ namespace stm {
     void renameStates(stm::automata &automata) {
         std::cout << "Renaming automata" << std::endl;
 
+    }
+    void invert(stm::dfa::stateMachine &automata) {
+        std::cout << "Inverting automata" << std::endl;
+        for(auto &[name,state] : automata)
+        {
+            state -> isfinal = !state -> isfinal;
+        }
+    }
+    void invert(stm::nfa::stateMachine &automata) {
+        std::cout << "Inverting automata" << std::endl;
+        for(auto &[name,state] : automata)
+        {
+            state -> isfinal = !state -> isfinal;
+        }
     }
 }
