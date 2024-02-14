@@ -244,6 +244,8 @@ namespace stm::dfa {
 
 #endif //STATEMACHINES_SRC_STM_CPP
 /*
+test cases:
+// --- dfa
 2
 a
 b
@@ -257,8 +259,8 @@ a
 b
 b
 b
- _
- //----
+_
+ //---- nfa
 4
 A
 B
