@@ -63,7 +63,7 @@ namespace stm::nfa {
                 _inputsignals.emplace_back(_in);
                 null -> setoutput(_in,null);
             }
-            _validstates["_"] = nullptr;
+//            _validstates["_"] = nullptr;
             int n;
             std::cin.ignore();
             std::cout<<"\nEnter no.of Final States: ",std::cin>>n,std::cout<<std::endl;
@@ -85,7 +85,7 @@ namespace stm::nfa {
                 if (statename == "_")
                     continue;
                 LINE(5) std::cout << "\n\n";
-                std::cout << "For state :" << statename<< "\n\n";
+                std::cout << "For state :" << statename <<" "<< &(state -> outputStates) << "\n\n";
                 for (const auto &sig : _inputsignals)
                 {
                     std::vector<std::string> inputs;
@@ -155,7 +155,7 @@ namespace stm::dfa {
                     _inputsignals.emplace_back(_in);
                     null -> setoutput(_in, null);
                 }
-                _validstates["_"] = nullptr;
+//                _validstates["_"] = nullptr;
                 int n;
                 std::cin.ignore();
                 std::cout << "\nEnter no.of Final States: ", std::cin >> n, std::cout << std::endl;

@@ -75,7 +75,7 @@ namespace stm {
     void minimize(const automata &dfa) {
         std::cout << "Minimizing dfa" << std::endl;
     }
-    bool validateString(const std::string &_in, const stm::dfa::stateMachine &finiteautomata) {
+    const char * validateString(const std::string &_in, const stm::dfa::stateMachine &finiteautomata) {
         auto currentstate =finiteautomata.start_state;
         for (size_t i = 0; i < _in.size(); ++i)
         {
@@ -90,7 +90,7 @@ namespace stm {
             std::cout << " --> " << currentstate -> name << "\n";
 #endif
         }
-        return currentstate->isfinal;
+        return (currentstate->isfinal) ? "Accepted" : currentstate->name.c_str();
     }
     void validate_assignment(std::shared_ptr<dfa::state> &newstate,const stm::mixedState &curr_state,dfa::stateMachine &dfa) {
         const auto &state_ptr1 = dfa._validstates.find(curr_state.name());
@@ -146,7 +146,7 @@ namespace stm {
     }
     bool areEqual(const stm::automata &a1, const stm::automata &a2)
     {
-
+        return 0;
     }
     void renameStates(stm::automata &automata) {
         std::cout << "Renaming automata" << std::endl;

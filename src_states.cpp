@@ -24,7 +24,7 @@ namespace stm::nfa {
 
         void setoutput(const char &through, std::shared_ptr<state> &to) {
             outputStates[through].emplace_back(to);
-//            std::cout << "\n got " << to -> name << " " << &outputStates << " through " << through << std::endl;
+//            std::cout << "\n got " << to -> name << " " << &(to ->outputStates) << " through " << through << std::endl;
         }
 
         auto where(const char &input) {
