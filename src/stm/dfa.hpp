@@ -4,7 +4,6 @@ namespace stm
 {
     class dfa {
     private:
-        /* data */
     public:
         dfa(/* args */);
         ~dfa();

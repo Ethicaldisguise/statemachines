@@ -3,7 +3,7 @@
 
 namespace stm
 {
-    class Turing{
+    class turing_machine{
         
     };    
 } // namespace stm

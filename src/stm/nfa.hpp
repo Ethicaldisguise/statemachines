@@ -1,8 +1,11 @@
 #pragma once
+#include "machines.h"
 
 namespace stm
 {
-    class nfa {
-
+    class nfa: protected stm::automata{
+        nfa() {
+            
+        }
     };
-} // namespace stm
+}

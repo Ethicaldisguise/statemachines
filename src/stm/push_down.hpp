@@ -2,7 +2,7 @@
 
 namespace stm
 {   
-    class PushDown {
+    class push_down {
 
     };
 } // namespace stm
