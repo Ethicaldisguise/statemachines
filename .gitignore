@@ -1,1 +1,5 @@
 *.exe
+*.xml
+*.iml
+*.log
+clion-*
